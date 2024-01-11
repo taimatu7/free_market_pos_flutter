@@ -57,11 +57,13 @@ DDD + Clean Architecture + MVVM
   - api：api通信を行うクラス
 - presentation
   - components：画面で共通で使用するウィジェット
-    - view : 共通パーツ
-    - view_model：パーツの状態保持とユースケース実行
+    - 各ウィジェット名
+      - view : ウィジェット
+      - view_model：ウィジェットの状態保持とユースケース実行
   - context (auth, settingsなど)
-    - view：画面
-    - view_model : 画面の状態保持とユースケース実行
+    - 各画面名
+      - view：画面
+      - view_model : 画面の状態保持とユースケース実行
 - common : アプリ全体で使用するクラス
   - constants：共通の定数
   - exceptions：共通の例外
