@@ -14,6 +14,7 @@ class _AppState extends State<App> {
       title: "FreeMarketPos",
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
       ),
       home: const ApplicationScreen(),
     );
