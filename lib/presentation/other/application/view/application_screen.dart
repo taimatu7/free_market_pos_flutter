@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:free_market_pos_flutter/presentation/constants/constants.dart';
 import 'package:free_market_pos_flutter/presentation/registration/store/view/store_screen.dart';
 
 class ApplicationScreen extends StatefulWidget {
@@ -15,9 +16,29 @@ class _ApplicationScreenState extends State<ApplicationScreen> {
         return const StoreScreen();
       }));
     });
-    return Container(
-      color: Colors.white,
-      child: const Center(child: Text('ApplicationScreen')),
-    );
+    return Scaffold(
+        body: Container(
+            color: Colors.blue,
+            width: double.infinity,
+            child: const Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'フリマPOS',
+                  style: TextStyle(
+                      color: textColorApplication,
+                      fontSize: titleFontSizeApplication),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  'アプリ起動中...',
+                  style: TextStyle(
+                      color: textColorApplication,
+                      fontSize: subTitleFontSizeApplication),
+                ),
+              ],
+            )));
   }
 }
