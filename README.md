@@ -56,6 +56,7 @@ DDD + Clean Architecture + MVVM
 - externals：外部と連携する処理を入れる
   - api：api通信を行うクラス
 - presentation
+  - constants：画面で使用する定数(幅や色など)
   - components：画面で共通で使用するウィジェット
     - 各ウィジェット名
       - view : ウィジェット
