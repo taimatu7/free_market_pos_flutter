@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:free_market_pos_flutter/presentation/constants/constants.dart';
 import 'package:free_market_pos_flutter/presentation/other/application/view/application_screen.dart';
 
 class App extends StatefulWidget {
@@ -15,6 +16,10 @@ class _AppState extends State<App> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        dividerTheme: const DividerThemeData(
+          color: dividerColor,
+          thickness: 1,
+        ),
       ),
       home: const ApplicationScreen(),
     );
