@@ -48,7 +48,9 @@ class _StoreScreenState extends State<StoreScreen> {
                   onPressed: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return const SaleScreen();
+                      return const SaleScreen(
+                        paied: false,
+                      );
                     }));
                   },
                   child: const Text("登録",

@@ -87,7 +87,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                 Navigator.push(context, MaterialPageRoute(
                                   builder: (context) {
                                     return const SaleScreen(
-                                      paymented: true,
+                                      paied: true,
                                     );
                                   },
                                 ));

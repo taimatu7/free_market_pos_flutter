@@ -5,7 +5,8 @@ import 'package:free_market_pos_flutter/presentation/constants/constants.dart';
 import 'package:free_market_pos_flutter/presentation/sale/payment/view/payment_screen.dart';
 
 class SaleScreen extends StatefulWidget {
-  const SaleScreen({Key? key}) : super(key: key);
+  const SaleScreen({Key? key, required this.paied}) : super(key: key);
+  final bool paied;
   @override
   State<SaleScreen> createState() => _SaleScreenState();
 }

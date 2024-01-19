@@ -31,7 +31,9 @@ class _SideDrawerState extends State<SideDrawer> {
             title: const Text('商品販売'),
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return const SaleScreen();
+                return const SaleScreen(
+                  paied: false,
+                );
               }));
             },
           ),
