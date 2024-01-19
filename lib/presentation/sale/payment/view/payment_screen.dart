@@ -10,9 +10,9 @@ class PaymentScreen extends StatefulWidget {
 }
 
 class _PaymentScreenState extends State<PaymentScreen> {
-  final List<({String name, String amount, String price})> list = [
-    (name: "革ジャン", amount: "1", price: "¥1,0000"),
-    (name: "コート", amount: "2", price: "¥2,0000")
+  final List<({String name, String quantity, String price})> list = [
+    (name: "革ジャン", quantity: "1", price: "¥1,0000"),
+    (name: "コート", quantity: "2", price: "¥2,0000")
   ];
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   itemBuilder: (BuildContext context, int index) {
                     return ListTile(
                       title: Text(list[index].name),
-                      subtitle: Text(list[index].amount),
+                      subtitle: Text(list[index].quantity),
                       trailing: Text(list[index].price),
                     );
                   },
