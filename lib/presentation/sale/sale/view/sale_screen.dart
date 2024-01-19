@@ -3,6 +3,7 @@ import 'package:free_market_pos_flutter/presentation/components/cart/cart.dart';
 import 'package:free_market_pos_flutter/presentation/components/side_drawer/side_drawer.dart';
 import 'package:free_market_pos_flutter/presentation/constants/constants.dart';
 import 'package:free_market_pos_flutter/presentation/sale/payment/view/payment_screen.dart';
+import 'package:free_market_pos_flutter/presentation/sale/sale/widgets/completed_payment_dialog.dart';
 
 class SaleScreen extends StatefulWidget {
   const SaleScreen({Key? key, required this.paied}) : super(key: key);
@@ -14,6 +15,21 @@ class SaleScreen extends StatefulWidget {
 class _SaleScreenState extends State<SaleScreen> {
   // 初期はすべてのカテゴリーを選択
   int _selectedCategoryIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (widget.paied) {
+        await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return const CompletedPaymentDialog();
+            });
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
