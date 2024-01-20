@@ -16,21 +16,24 @@ class _HistoryScreenState extends State<HistoryScreen> {
         String datetime,
         List<String> itemList,
         String quantity,
-        String totalPrice
+        String totalPrice,
+        bool returned,
       })> list = [
     (
       id: 1,
       datetime: "2024/01/20 9:32",
       itemList: ["革ジャン", "コート"],
       quantity: "3",
-      totalPrice: "¥3,0000"
+      totalPrice: "¥3,0000",
+      returned: false,
     ),
     (
       id: 2,
       datetime: "2024/01/20 10:30",
       itemList: ["スニーカー", "ワンピース", "ハイヒール"],
       quantity: "3",
-      totalPrice: "¥2,0000"
+      totalPrice: "¥2,0000",
+      returned: true
     ),
   ];
   @override
@@ -53,6 +56,12 @@ class _HistoryScreenState extends State<HistoryScreen> {
                       Text(list[index].datetime),
                       const SizedBox(width: 10),
                       Text("個数:${list[index].quantity}"),
+                      if (list[index].returned)
+                        const Padding(
+                          padding: EdgeInsets.only(left: 10),
+                          child:
+                              Text("返品済", style: TextStyle(color: Colors.red)),
+                        ),
                     ],
                   ),
                   trailing: Text(list[index].totalPrice),
@@ -60,7 +69,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     showDialog(
                         context: context,
                         builder: (_) {
-                          return const HistoryDetalDialog();
+                          return HistoryDetalDialog(list[index].returned);
                         });
                   });
             },

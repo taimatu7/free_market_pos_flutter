@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class HistoryDetalDialog extends ConsumerStatefulWidget {
-  const HistoryDetalDialog({Key? key}) : super(key: key);
-
+  const HistoryDetalDialog(this.returned, {Key? key}) : super(key: key);
+  final bool returned;
   @override
   HistoryDetailDialogState createState() => HistoryDetailDialogState();
 }
@@ -35,12 +35,13 @@ class HistoryDetailDialogState extends ConsumerState<HistoryDetalDialog> {
         ),
       ),
       actions: [
-        TextButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: const Text("返品"),
-        ),
+        if (!widget.returned)
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text("返品"),
+          ),
         TextButton(
           onPressed: () {
             Navigator.pop(context);
