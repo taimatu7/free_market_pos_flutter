@@ -38,7 +38,49 @@ class HistoryDetailDialogState extends ConsumerState<HistoryDetalDialog> {
         if (!widget.returned)
           TextButton(
             onPressed: () {
-              Navigator.pop(context);
+              showDialog(
+                  context: context,
+                  builder: (_) {
+                    return AlertDialog(
+                      title: const Text("返品"),
+                      content: const Text("返品しますか？"),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context, false);
+                          },
+                          child: const Text("いいえ"),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context, true);
+                          },
+                          child: const Text("はい"),
+                        ),
+                      ],
+                    );
+                  }).then((value) {
+                if (value == true) {
+                  showDialog(
+                      context: context,
+                      builder: (_) {
+                        return AlertDialog(
+                          title: const Text("返品完了"),
+                          content: const Text("返品が完了しました。"),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Text("閉じる"),
+                            ),
+                          ],
+                        );
+                      }).then((value) => Navigator.pop(context));
+                } else {
+                  Navigator.pop(context);
+                }
+              });
             },
             child: const Text("返品"),
           ),
