@@ -3,7 +3,7 @@ import 'package:free_market_pos_flutter/presentation/components/cart/cart.dart';
 import 'package:free_market_pos_flutter/presentation/components/side_drawer/side_drawer.dart';
 import 'package:free_market_pos_flutter/presentation/constants/constants.dart';
 import 'package:free_market_pos_flutter/presentation/sale/payment/view/payment_screen.dart';
-import 'package:free_market_pos_flutter/presentation/sale/sale/widgets/completed_payment_dialog.dart';
+import 'package:free_market_pos_flutter/presentation/sale/sale/view/widgets/completed_payment_dialog.dart';
 
 class SaleScreen extends StatefulWidget {
   const SaleScreen({Key? key, required this.paied}) : super(key: key);
@@ -110,12 +110,7 @@ class _SaleScreenState extends State<SaleScreen> {
                         ],
                       ),
                     ),
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return const PaymentScreen();
-                      }));
-                    },
+                    onTap: () {},
                   );
                 },
                 itemCount: itemList.length),
