@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:free_market_pos_flutter/presentation/history/history/view/history_screen.dart';
-import 'package:free_market_pos_flutter/presentation/registration/category/category_screen.dart';
+import 'package:free_market_pos_flutter/presentation/registration/category/view/category_screen.dart';
 import 'package:free_market_pos_flutter/presentation/registration/product/product_screen.dart';
 import 'package:free_market_pos_flutter/presentation/sale/sale/view/sale_screen.dart';
 import 'package:free_market_pos_flutter/presentation/settings/settings/view/settings_screen.dart';

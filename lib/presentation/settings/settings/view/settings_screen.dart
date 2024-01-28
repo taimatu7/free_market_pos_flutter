@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:free_market_pos_flutter/presentation/components/side_drawer/side_drawer.dart';
+import 'package:free_market_pos_flutter/presentation/components/side_drawer/view/side_drawer.dart';
 import 'package:free_market_pos_flutter/presentation/constants/constants.dart';
 
 class SettingsScreen extends StatefulWidget {
