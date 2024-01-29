@@ -29,7 +29,7 @@
 - DI
   - riverpod
 - ロガー
-  - flutter-logger
+  - logger
 - 監視
   - firebase_core
   - firebase_crashlytics
