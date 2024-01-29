@@ -1,20 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:free_market_pos_flutter/presentation/constants/constants.dart';
-import 'package:free_market_pos_flutter/presentation/sale/sale/view/sale_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class StoreScreen extends StatefulWidget {
+import '../../../../common/extensions/context_extension.dart';
+import '../../../constants/constants.dart';
+import '../../../sale/sale/view/sale_screen.dart';
+import '../view_model/store_screen_model.dart';
+import '../view_model/store_screen_view_model.dart';
+
+class StoreScreen extends ConsumerStatefulWidget {
   const StoreScreen({Key? key}) : super(key: key);
   @override
-  State<StoreScreen> createState() => _StoreScreenState();
+  ConsumerState<StoreScreen> createState() => _StoreScreenState();
 }
 
-class _StoreScreenState extends State<StoreScreen> {
+class _StoreScreenState extends ConsumerState<StoreScreen> {
+  final TextEditingController _storeNameController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    ref.listen<StoreScreenModel>(storeScreenViewModelProvider, (previous, next) {
+      if (next.registered) {
+        context.showSnackBar('店舗登録に成功しました。');
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return const SaleScreen(
+            paied: false,
+          );
+        }));
+      } else {
+        context.showSnackBar('店舗登録に失敗しました。もう一度登録してください。');
+      }
+    });
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: appBarColor,
-        title: const Text("店舗登録", style: TextStyle(color: titleColor)),
+        title: const Text('店舗登録', style: TextStyle(color: titleColor)),
         centerTitle: true,
         automaticallyImplyLeading: false,
       ),
@@ -24,13 +43,13 @@ class _StoreScreenState extends State<StoreScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text("店舗名を入力してください。",
-                  style: TextStyle(fontSize: inputLabelFontSizeStore)),
+              const Text('店舗名を入力してください。', style: TextStyle(fontSize: inputLabelFontSizeStore)),
               const SizedBox(
                 height: 20,
               ),
-              const TextField(
-                decoration: InputDecoration(
+              TextField(
+                controller: _storeNameController,
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: '店舗名',
                 ),
@@ -42,21 +61,12 @@ class _StoreScreenState extends State<StoreScreen> {
                 width: double.infinity,
                 child: ElevatedButton(
                   style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.blue),
+                    backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
                   ),
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return const SaleScreen(
-                        paied: false,
-                      );
-                    }));
+                  onPressed: () async {
+                    await ref.read(storeScreenViewModelProvider.notifier).registerStore(_storeNameController.text);
                   },
-                  child: const Text("登録",
-                      style: TextStyle(
-                          color: bottonTextColor,
-                          fontSize: buttonFontSizeStore)),
+                  child: const Text('登録', style: TextStyle(color: bottonTextColor, fontSize: buttonFontSizeStore)),
                 ),
               )
             ],
