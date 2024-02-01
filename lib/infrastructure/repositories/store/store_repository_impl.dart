@@ -13,15 +13,15 @@ class StoreRepositoryImpl implements StoreRepository {
 
   @override
   Future<Store> create(Store store) async {
-    final storeModel = realm.Store(store.name);
     try {
+      final storeModel = realm.Store(store.name);
       _realm.write(() {
         _realm.add(storeModel);
       });
+      return store;
     } catch (e, stackTrace) {
       Logger().e('店舗作成エラー:$e', stackTrace: stackTrace);
       throw CreateStoreException('');
     }
-    return store;
   }
 }
