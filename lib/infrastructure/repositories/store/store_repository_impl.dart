@@ -19,8 +19,8 @@ class StoreRepositoryImpl implements StoreRepository {
         _realm.add(storeModel);
       });
     } catch (e, stackTrace) {
-      Logger().e(e.toString(), stackTrace: stackTrace);
-      throw CreateStoreException('店舗作成エラー');
+      Logger().e('店舗作成エラー:$e', stackTrace: stackTrace);
+      throw CreateStoreException('');
     }
     return store;
   }
