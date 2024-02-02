@@ -23,14 +23,14 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
 
   Future<void> _init() async {
     final notifier = ref.read(settingsScreenViewModelProvider.notifier);
-    await notifier.getStore();
+    await notifier.init();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("設定", style: TextStyle(color: titleColor)),
+          title: const Text('設定', style: TextStyle(color: titleColor)),
           backgroundColor: appBarColor,
           centerTitle: true,
         ),
@@ -53,11 +53,11 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                         children: [const Text('店舗名'), Text(model.store?.name ?? '店舗名が取得できませんでした')],
                       ),
                       const Divider(),
-                      const Row(
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('Version'),
-                          Text('1.0.0'),
+                          const Text('Version'),
+                          Text(model.version ?? 'バージョン情報が取得できませんでした'),
                         ],
                       ),
                       const Divider(),

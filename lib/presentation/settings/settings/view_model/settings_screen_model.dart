@@ -6,5 +6,5 @@ part '../../../../generated/presentation/settings/settings/view_model/settings_s
 
 @freezed
 class SettingsScreenModel with _$SettingsScreenModel {
-  factory SettingsScreenModel({Store? store}) = _SettingsScreenModel;
+  factory SettingsScreenModel({Store? store, String? version}) = _SettingsScreenModel;
 }
