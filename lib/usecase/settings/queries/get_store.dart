@@ -6,7 +6,7 @@ class GetStore {
 
   GetStore(this._storeRepository);
 
-  Future<Store> execute() async {
+  Future<Store?> execute() async {
     return await _storeRepository.get();
   }
 }

@@ -27,11 +27,11 @@ class StoreRepositoryImpl implements StoreRepository {
   }
 
   @override
-  Future<Store> get() async {
+  Future<Store?> get() async {
     try {
-      final realm.Store storeModel;
-      storeModel = _realm.all<realm.Store>().first;
-      return storeModel.toDomainModel();
+      final realm.Store? storeModel;
+      storeModel = _realm.all<realm.Store>().firstOrNull;
+      return storeModel?.toDomainModel();
     } catch (e, stackTrace) {
       Logger().e('店舗取得エラー:$e.toString()', stackTrace: stackTrace);
       throw GetStoreException('');

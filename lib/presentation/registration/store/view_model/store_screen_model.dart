@@ -4,5 +4,5 @@ part '../../../../generated/presentation/registration/store/view_model/store_scr
 
 @freezed
 class StoreScreenModel with _$StoreScreenModel {
-  factory StoreScreenModel({@Default(false) bool registered}) = _StoreScreenModel;
+  factory StoreScreenModel({@Default(false) bool registered, @Default(true) bool isFirstRegistered}) = _StoreScreenModel;
 }
