@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../common/extensions/context_extension.dart';
 import '../../../components/side_drawer/view/side_drawer.dart';
 import '../../../constants/constants.dart';
+import '../view_model/settings_screen_model.dart';
 import '../view_model/settings_screen_view_model.dart';
 
 class SettingsScreen extends ConsumerStatefulWidget {
@@ -28,6 +30,13 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    String storeName;
+    ref.listen<SettingsScreenModel>(settingsScreenViewModelProvider, (previous, next) {
+      setState(() {
+        storeName = next.store?.name ?? '';
+      });
+    });
+
     return Scaffold(
         appBar: AppBar(
           title: const Text('設定', style: TextStyle(color: titleColor)),
@@ -40,7 +49,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             builder: (context, snapshot) {
               if (snapshot.connectionState != ConnectionState.done) const Center(child: CircularProgressIndicator());
               final model = ref.read(settingsScreenViewModelProvider);
-              _storeNameController.text = model.store?.name ?? '';
+              storeName = model.store?.name ?? '';
 
               return SizedBox(
                 height: MediaQuery.of(context).size.height * 0.8,
@@ -50,7 +59,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [const Text('店舗名'), Text(model.store?.name ?? '店舗名が取得できませんでした')],
+                        children: [const Text('店舗名'), Text(storeName ?? '店舗名が取得できませんでした')],
                       ),
                       const Divider(),
                       Row(
@@ -71,6 +80,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                                 backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
                               ),
                               onPressed: () {
+                                _storeNameController.text = storeName;
                                 showDialog(
                                     context: context,
                                     builder: (_) {
@@ -90,7 +100,13 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                                             child: const Text('Cancel'),
                                           ),
                                           TextButton(
-                                            onPressed: () {},
+                                            onPressed: () async {
+                                              await ref.read(settingsScreenViewModelProvider.notifier).updateStore(_storeNameController.text);
+                                              if (mounted) {
+                                                context.showSnackBar('店舗名を変更しました');
+                                                Navigator.pop(context);
+                                              }
+                                            },
                                             child: const Text('Save'),
                                           ),
                                         ],
