@@ -11,12 +11,14 @@ class Product with _$Product {
     required String id,
     required String categoryId,
     required String name,
+    required int price,
   }) = _Product;
-  factory Product.generate(String name, String categoryId) => Product(id: Ulid().toString(), categoryId: categoryId, name: name);
+  factory Product.generate(String categoryId, String name, int price) =>
+      Product(id: Ulid().toString(), categoryId: categoryId, name: name, price: price);
 }
 
 extension ProductExtension on Product {
   realm.Product toRealmModel() {
-    return realm.Product(id, categoryId, name);
+    return realm.Product(id, categoryId, name, price);
   }
 }

@@ -10,10 +10,11 @@ class _Product {
   late String id;
   late String categoryId;
   late String name;
+  late int price;
 }
 
 extension ProductExtension on _Product {
   domain.Product toDomainModel() {
-    return domain.Product(id: id, categoryId: categoryId, name: name);
+    return domain.Product(id: id, categoryId: categoryId, name: name, price: price);
   }
 }
