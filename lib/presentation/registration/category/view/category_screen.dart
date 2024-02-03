@@ -14,7 +14,7 @@ class CategoryScreen extends ConsumerStatefulWidget {
 }
 
 class _CategoryScreenState extends ConsumerState<CategoryScreen> {
-  final List<Category> categoryList = [];
+  final List<Category> categories = [];
   final forcusNode = FocusNode();
   late Future<void> _initFunction;
 
@@ -34,8 +34,8 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
     ref.listen<CategoryScreenModel>(categoryScreenViewModelProvider, (previous, next) {
       if (next.categories.isNotEmpty) {
         setState(() {
-          categoryList.clear();
-          categoryList.addAll(next.categories);
+          categories.clear();
+          categories.addAll(next.categories);
         });
       }
     });
@@ -99,14 +99,14 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
             return ListView.separated(
                 itemBuilder: (_, index) {
                   return ListTile(
-                    title: Text(categoryList[index].name),
+                    title: Text(categories[index].name),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         GestureDetector(
                           child: const Text('編集'),
                           onTap: () {
-                            final updateCategoryNameController = TextEditingController(text: categoryList[index].name);
+                            final updateCategoryNameController = TextEditingController(text: categories[index].name);
                             showDialog(
                                 context: context,
                                 builder: (_) {
@@ -128,7 +128,7 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
                                         onPressed: () async {
                                           final result = await ref
                                               .read(categoryScreenViewModelProvider.notifier)
-                                              .updateCategory(categoryList[index], updateCategoryNameController.text);
+                                              .updateCategory(categories[index], updateCategoryNameController.text);
                                           final text = result ? 'カテゴリーを編集しました' : 'カテゴリーの編集に失敗しました';
                                           if (context.mounted) {
                                             context.showSnackBar(text);
@@ -161,7 +161,7 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
                                       ),
                                       TextButton(
                                         onPressed: () async {
-                                          final result = await ref.read(categoryScreenViewModelProvider.notifier).deleteCategory(categoryList[index]);
+                                          final result = await ref.read(categoryScreenViewModelProvider.notifier).deleteCategory(categories[index]);
                                           final text = result ? 'カテゴリーを削除しました' : 'カテゴリーの削除に失敗しました';
                                           if (context.mounted) {
                                             context.showSnackBar(text);
@@ -180,7 +180,7 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
                   );
                 },
                 separatorBuilder: (_, index) => const Divider(),
-                itemCount: categoryList.length);
+                itemCount: categories.length);
           }),
     );
   }
