@@ -42,6 +42,17 @@ class ProductRepositoryImpl implements ProductRepository {
   }
 
   @override
+  Future<List<Product>> getAll() async {
+    try {
+      final productModel = _realm.all<realm.Product>();
+      return productModel.map((e) => e.toDomainModel()).toList();
+    } catch (e, stackTrace) {
+      Logger().e('商品全取得エラー:$e', stackTrace: stackTrace);
+      throw GetProductException('');
+    }
+  }
+
+  @override
   Future<Product?> getById(String id) async {
     try {
       final productModel = _realm.find<realm.Product>(id);

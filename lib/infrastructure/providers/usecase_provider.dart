@@ -8,6 +8,7 @@ import '../../usecase/registration/commands/register_store.dart';
 import '../../usecase/registration/commands/update_category.dart';
 import '../../usecase/registration/commands/update_product.dart';
 import '../../usecase/registration/queries/get_all_categories.dart';
+import '../../usecase/registration/queries/get_all_products.dart';
 import '../../usecase/registration/queries/get_all_products_by_category.dart';
 import '../../usecase/registration/queries/get_product.dart';
 import '../../usecase/settings/commands/update_store.dart';
@@ -29,6 +30,7 @@ final deleteCategoryUsecaseProvider = Provider<DeleteCategory>((ref) => DeleteCa
 final registerProductUsecaseProvider = Provider<RegisterProduct>((ref) => RegisterProduct(ref.read(productRepositoryProvider)));
 final getAllProductsByCategoryUsecaseProvider =
     Provider<GetAllProductsByCategory>((ref) => GetAllProductsByCategory(ref.read(productRepositoryProvider)));
+final getAllProductsUsecaseProvider = Provider<GetAllProducts>((ref) => GetAllProducts(ref.read(productRepositoryProvider)));
 final getProductUsecaseProvider = Provider<GetProduct>((ref) => GetProduct(ref.read(productRepositoryProvider)));
 final updateProductUsecaseProvider = Provider<UpdateProduct>((ref) => UpdateProduct(ref.read(productRepositoryProvider)));
 final deleteProductUsecaseProvider = Provider<DeleteProduct>((ref) => DeleteProduct(ref.read(productRepositoryProvider)));
