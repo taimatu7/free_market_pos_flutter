@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:realm/realm.dart';
 
+import 'infrastructure/data/db/category.dart' as db;
 import 'infrastructure/data/db/store.dart';
 import 'infrastructure/data/db/test_seeder.dart';
 import 'infrastructure/providers/repository_provider.dart';
@@ -24,7 +25,7 @@ class _AppState extends State<App> {
   void initState() {
     super.initState();
     final config = Configuration.local(
-      [Store.schema],
+      [Store.schema, db.Category.schema],
       migrationCallback: _migrationCallback,
       schemaVersion: 1,
       initialDataCallback: (realm) {

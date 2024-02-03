@@ -18,5 +18,5 @@ final getVersionUsecaseProvider = Provider<GetVersion>((ref) => GetVersion());
 
 final registerCategoryUsecaseProvider = Provider<RegisterCategory>((ref) => RegisterCategory(ref.read(categoryRepositoryProvider)));
 final getCategoryUsecaseProvider = Provider<GetAllCategories>((ref) => GetAllCategories(ref.read(categoryRepositoryProvider)));
-final updateUpdateUsecaseProvider = Provider<UpdateCategory>((ref) => UpdateCategory(ref.read(categoryRepositoryProvider)));
+final updateCategoryUsecaseProvider = Provider<UpdateCategory>((ref) => UpdateCategory(ref.read(categoryRepositoryProvider)));
 final deleteCategoryUsecaseProvider = Provider<DeleteCategory>((ref) => DeleteCategory(ref.read(categoryRepositoryProvider)));
