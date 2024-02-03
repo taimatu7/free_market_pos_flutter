@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:ulid/ulid.dart';
 
 import '../../infrastructure/data/db/category.dart' as realm;
 
@@ -10,6 +11,7 @@ class Category with _$Category {
     required String id,
     required String name,
   }) = _Category;
+  factory Category.generate(String name) => Category(id: Ulid().toString(), name: name);
 }
 
 extension CategoryExtension on Category {
