@@ -91,11 +91,7 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
       body: FutureBuilder(
           future: _initFunction,
           builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
+            if (snapshot.connectionState != ConnectionState.done) const Center(child: CircularProgressIndicator());
             return ListView.separated(
                 itemBuilder: (_, index) {
                   return ListTile(
