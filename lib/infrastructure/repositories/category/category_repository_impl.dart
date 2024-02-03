@@ -30,17 +30,6 @@ class CategoryRepositoryImpl implements CategoryRepository {
   }
 
   @override
-  Future<Category?> get() async {
-    try {
-      final categoryModel = _realm.all<realm.Category>().firstOrNull;
-      return categoryModel?.toDomainModel();
-    } catch (e, stackTrace) {
-      Logger().e('カテゴリ取得エラー:$e', stackTrace: stackTrace);
-      throw GetCategoryException('');
-    }
-  }
-
-  @override
   Future<List<Category>> getAll() async {
     try {
       final categoryModel = _realm.all<realm.Category>();
