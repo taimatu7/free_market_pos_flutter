@@ -14,7 +14,6 @@ class CategoryScreen extends ConsumerStatefulWidget {
 }
 
 class _CategoryScreenState extends ConsumerState<CategoryScreen> {
-  final TextEditingController _updateCategoryNameController = TextEditingController();
   final List<Category> categoryList = [];
   final forcusNode = FocusNode();
   late Future<void> _initFunction;
@@ -101,43 +100,83 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
                 itemBuilder: (_, index) {
                   return ListTile(
                     title: Text(categoryList[index].name),
-                    trailing: const Text('編集'),
-                    onTap: () {
-                      final updateCategoryNameController = TextEditingController(text: categoryList[index].name);
-                      showDialog(
-                          context: context,
-                          builder: (_) {
-                            return AlertDialog(
-                              title: const Text('カテゴリー編集'),
-                              content: TextField(
-                                controller: updateCategoryNameController,
-                                decoration: const InputDecoration(
-                                  labelText: 'カテゴリー名',
-                                  hintText: 'カテゴリー名を入力してください',
-                                ),
-                              ),
-                              actions: [
-                                TextButton(
-                                  onPressed: () => Navigator.pop(context),
-                                  child: const Text('キャンセル'),
-                                ),
-                                TextButton(
-                                  onPressed: () async {
-                                    final result = await ref
-                                        .read(categoryScreenViewModelProvider.notifier)
-                                        .updateCategory(categoryList[index], updateCategoryNameController.text);
-                                    final text = result ? 'カテゴリーを編集しました' : 'カテゴリーの編集に失敗しました';
-                                    if (context.mounted) {
-                                      context.showSnackBar(text);
-                                      Navigator.pop(context);
-                                    }
-                                  },
-                                  child: const Text('編集'),
-                                ),
-                              ],
-                            );
-                          });
-                    },
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        GestureDetector(
+                          child: const Text('編集'),
+                          onTap: () {
+                            final updateCategoryNameController = TextEditingController(text: categoryList[index].name);
+                            showDialog(
+                                context: context,
+                                builder: (_) {
+                                  return AlertDialog(
+                                    title: const Text('カテゴリー編集'),
+                                    content: TextField(
+                                      controller: updateCategoryNameController,
+                                      decoration: const InputDecoration(
+                                        labelText: 'カテゴリー名',
+                                        hintText: 'カテゴリー名を入力してください',
+                                      ),
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () => Navigator.pop(context),
+                                        child: const Text('キャンセル'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () async {
+                                          final result = await ref
+                                              .read(categoryScreenViewModelProvider.notifier)
+                                              .updateCategory(categoryList[index], updateCategoryNameController.text);
+                                          final text = result ? 'カテゴリーを編集しました' : 'カテゴリーの編集に失敗しました';
+                                          if (context.mounted) {
+                                            context.showSnackBar(text);
+                                            Navigator.pop(context);
+                                          }
+                                        },
+                                        child: const Text('編集'),
+                                      ),
+                                    ],
+                                  );
+                                });
+                          },
+                        ),
+                        const SizedBox(
+                          width: 40,
+                        ),
+                        GestureDetector(
+                          child: const Text('削除'),
+                          onTap: () {
+                            showDialog(
+                                context: context,
+                                builder: (_) {
+                                  return AlertDialog(
+                                    title: const Text('カテゴリー削除'),
+                                    content: const Text('カテゴリーを削除しますか？'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () => Navigator.pop(context),
+                                        child: const Text('キャンセル'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () async {
+                                          final result = await ref.read(categoryScreenViewModelProvider.notifier).deleteCategory(categoryList[index]);
+                                          final text = result ? 'カテゴリーを削除しました' : 'カテゴリーの削除に失敗しました';
+                                          if (context.mounted) {
+                                            context.showSnackBar(text);
+                                            Navigator.pop(context);
+                                          }
+                                        },
+                                        child: const Text('削除'),
+                                      ),
+                                    ],
+                                  );
+                                });
+                          },
+                        ),
+                      ],
+                    ),
                   );
                 },
                 separatorBuilder: (_, index) => const Divider(),

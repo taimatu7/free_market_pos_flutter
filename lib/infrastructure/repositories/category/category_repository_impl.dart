@@ -74,7 +74,7 @@ class CategoryRepositoryImpl implements CategoryRepository {
       _realm.write(() {
         _realm.delete(categoryModel);
       });
-      return categoryModel.toDomainModel();
+      return category;
     } catch (e, stackTrace) {
       Logger().e('カテゴリ削除エラー:$e', stackTrace: stackTrace);
       throw DeleteCategoryException('');
