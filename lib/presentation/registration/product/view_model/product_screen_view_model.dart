@@ -62,9 +62,9 @@ class ProductScreenViewModel extends StateNotifier<ProductScreenModel> {
     }
   }
 
-  Future<bool> updateProduct(Product product, String productName, String price) async {
+  Future<bool> updateProduct(Product product, String productName, String price, String categoryId) async {
     try {
-      final local = product.copyWith(name: productName, price: int.parse(price));
+      final local = product.copyWith(name: productName, price: int.parse(price), categoryId: categoryId);
       await _updateProduct.execute(local);
       final products = await _getAllProducts.execute();
       state = state.copyWith(products: products);

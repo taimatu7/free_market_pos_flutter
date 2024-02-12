@@ -9,7 +9,7 @@ part '../../generated/domain/product/product.freezed.dart';
 class Product with _$Product {
   const factory Product({
     required String id,
-    required String categoryId,
+    required String categoryId, // カテゴリーのドメインをもたせるようにする
     required String name,
     required int price,
   }) = _Product;
