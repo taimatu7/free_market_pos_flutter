@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../common/extensions/context_extension.dart';
 import '../../../../domain/category/category.dart';
+import '../../../components/side_drawer/view/side_drawer.dart';
 import '../../../constants/constants.dart';
 import '../view_model/category_screen_model.dart';
 import '../view_model/category_screen_view_model.dart';
@@ -88,6 +89,7 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
           )
         ],
       ),
+      drawer: const SideDrawer(),
       body: FutureBuilder(
           future: _initFunction,
           builder: (context, snapshot) {
