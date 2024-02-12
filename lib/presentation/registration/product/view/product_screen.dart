@@ -51,12 +51,10 @@ class _ProductScreenState extends ConsumerState<ProductScreen> {
   @override
   Widget build(BuildContext context) {
     ref.listen<ProductScreenModel>(productScreenViewModelProvider, (previous, next) {
-      if (next.products.isNotEmpty) {
-        setState(() {
-          _products.clear();
-          _products.addAll(next.products);
-        });
-      }
+      setState(() {
+        _products.clear();
+        _products.addAll(next.products);
+      });
     });
 
     return FutureBuilder(
