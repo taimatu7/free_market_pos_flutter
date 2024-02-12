@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../domain/category/category.dart';
 import '../../../../domain/product/product.dart';
 import '../../../components/cart/view/cart.dart';
+import '../../../components/cart/view_model/cart_view_model.dart';
 import '../../../components/side_drawer/view/side_drawer.dart';
 import '../../../constants/constants.dart';
 import '../view_model/sale_screen_view_model.dart';
@@ -52,6 +53,9 @@ class _SaleScreenState extends ConsumerState<SaleScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final cartNotifier = ref.read(cartViewModelProvider.notifier);
+    final cartModel = ref.read(cartViewModelProvider);
+
     return FutureBuilder(
         future: _initFunction,
         builder: (context, snapshot) {
@@ -64,9 +68,9 @@ class _SaleScreenState extends ConsumerState<SaleScreen> {
               title: const Text('商品販売', style: TextStyle(color: titleColor)),
               backgroundColor: appBarColor,
               centerTitle: true,
-              actions: [
+              actions: const [
                 Padding(
-                  padding: const EdgeInsets.only(right: 15.0),
+                  padding: EdgeInsets.only(right: 15.0),
                   child: Cart(),
                 )
               ],
@@ -100,35 +104,66 @@ class _SaleScreenState extends ConsumerState<SaleScreen> {
                   flex: 3,
                   child: ListView.builder(
                       itemBuilder: (BuildContext context, int index) {
+                        final isProductInCart = cartModel.products.contains(filteredProductBySelectedCategory[index]);
                         return GestureDetector(
                           child: Card(
+                            color: isProductInCart ? Colors.blue[200] : Colors.blue[50],
                             shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.all(Radius.circular(5)),
                             ),
                             child: Row(
                               children: [
                                 Expanded(
-                                  flex: 3,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: Text(
-                                      filteredProductBySelectedCategory[index].name,
-                                      textAlign: TextAlign.left,
-                                      style: const TextStyle(fontSize: itemTitleFontSizeSale),
+                                  flex: 10,
+                                  child: GestureDetector(
+                                    behavior: HitTestBehavior.opaque,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            filteredProductBySelectedCategory[index].name,
+                                            textAlign: TextAlign.left,
+                                            style: const TextStyle(fontSize: itemTitleFontSizeSale),
+                                          ),
+                                          Text(
+                                            '${filteredProductBySelectedCategory[index].price}円',
+                                            textAlign: TextAlign.right,
+                                            style: const TextStyle(fontSize: itemPriceFontSizeSale),
+                                          ),
+                                        ],
+                                      ),
                                     ),
+                                    onTap: () {
+                                      setState(() {
+                                        cartNotifier.addProduct(filteredProductBySelectedCategory[index]);
+                                      });
+                                    },
                                   ),
                                 ),
                                 Expanded(
-                                  flex: 1,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10.0),
+                                    flex: 1,
                                     child: Text(
-                                      '${filteredProductBySelectedCategory[index].price}円',
-                                      textAlign: TextAlign.right,
-                                      style: const TextStyle(fontSize: itemPriceFontSizeSale),
-                                    ),
-                                  ),
-                                ),
+                                      isProductInCart
+                                          ? '×${cartModel.products.where((p) => p.id == filteredProductBySelectedCategory[index].id).length}'
+                                          : '',
+                                      style: const TextStyle(color: Colors.white),
+                                    )),
+                                Expanded(
+                                    flex: 2,
+                                    child: GestureDetector(
+                                      behavior: HitTestBehavior.opaque,
+                                      child: Padding(
+                                          padding: const EdgeInsets.all(10.0),
+                                          child:
+                                              isProductInCart ? GestureDetector(child: const Icon(Icons.clear, color: Colors.white)) : Container()),
+                                      onTap: () => setState(() {
+                                        if (isProductInCart) {
+                                          cartNotifier.removeProduct(filteredProductBySelectedCategory[index]);
+                                        }
+                                      }),
+                                    ))
                               ],
                             ),
                           ),
