@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ulid/ulid.dart';
 
 import '../../../../domain/product/product.dart';
 import '../../../../domain/purchase_history/purchase_history.dart';
@@ -17,8 +18,11 @@ class PaymentScreenViewModel extends StateNotifier<PaymentScreenModel> {
 
   bool savePurchaseHistory(List<(Product, int)> paymentDetails) {
     try {
+      final ulid = Ulid().toString();
+      final date = DateTime.now();
       final purchaseHistories = paymentDetails
-          .map((e) => PurchaseHistory.generate(PurchaseHistoryDetail(productId: e.$1.id, quantity: e.$2, price: e.$1.price * e.$2)))
+          .map((e) => PurchaseHistory(
+              id: ulid, createdAt: date, details: PurchaseHistoryDetail(productId: e.$1.id, quantity: e.$2, price: e.$1.price * e.$2)))
           .toList();
       _savePurchaseHistory.execute(purchaseHistories);
       return true;
