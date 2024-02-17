@@ -2,8 +2,10 @@ import 'package:logger/logger.dart';
 import 'package:realm/realm.dart';
 
 import '../../../domain/product/exceptions/create_product_exception.dart';
+import '../../../domain/product/exceptions/get_product_exception.dart';
 import '../../../domain/purchase_history/purchase_history.dart';
 import '../../../domain/purchase_history/purchase_history_repository.dart';
+import '../../data/db/purchase_history.dart' as realm;
 
 class PurchaseHistoryRepositoryImpl implements PurchaseHistoryRepository {
   final Realm _realm;
@@ -32,9 +34,14 @@ class PurchaseHistoryRepositoryImpl implements PurchaseHistoryRepository {
   }
 
   @override
-  Future<List<PurchaseHistory>> getAll() {
-    // TODO: implement getAll
-    throw UnimplementedError();
+  Future<List<PurchaseHistory>> getAll() async {
+    try {
+      final purchaseHistoriesModel = _realm.all<realm.PurchaseHistory>();
+      return purchaseHistoriesModel.map((e) => e.toDomainModel()).toList();
+    } catch (e, stackTrace) {
+      Logger().e('履歴取得エラー:$e', stackTrace: stackTrace);
+      throw GetProductException('');
+    }
   }
 
   @override
