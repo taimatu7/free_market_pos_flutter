@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../usecase/payment/commands/save_purchase_history.dart';
 import '../../usecase/registration/commands/delete_category.dart';
 import '../../usecase/registration/commands/delete_product.dart';
 import '../../usecase/registration/commands/register_category.dart';
@@ -34,3 +35,5 @@ final getAllProductsUsecaseProvider = Provider<GetAllProducts>((ref) => GetAllPr
 final getProductUsecaseProvider = Provider<GetProduct>((ref) => GetProduct(ref.read(productRepositoryProvider)));
 final updateProductUsecaseProvider = Provider<UpdateProduct>((ref) => UpdateProduct(ref.read(productRepositoryProvider)));
 final deleteProductUsecaseProvider = Provider<DeleteProduct>((ref) => DeleteProduct(ref.read(productRepositoryProvider)));
+
+final savePurchaseHistoryUsecaseProvider = Provider<SavePurchaseHistory>((ref) => SavePurchaseHistory(ref.read(purchaseHistoryRepositoryProvider)));

@@ -11,7 +11,8 @@ import '../view_model/sale_screen_view_model.dart';
 import 'widgets/completed_payment_dialog.dart';
 
 class SaleScreen extends ConsumerStatefulWidget {
-  const SaleScreen({Key? key, required this.paied}) : super(key: key);
+  const SaleScreen({Key? key, required this.paied, required this.isSuccess}) : super(key: key);
+  final bool isSuccess;
   final bool paied;
   @override
   ConsumerState<SaleScreen> createState() => _SaleScreenState();
@@ -30,6 +31,7 @@ class _SaleScreenState extends ConsumerState<SaleScreen> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (widget.paied) {
+        ref.read(cartViewModelProvider.notifier).clear();
         await showDialog(
             context: context,
             builder: (BuildContext context) {

@@ -36,6 +36,7 @@ class _SideDrawerState extends State<SideDrawer> {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
                 return const SaleScreen(
                   paied: false,
+                  isSuccess: false, //不要なためfalse
                 );
               }));
             },

@@ -23,6 +23,7 @@ class _StoreScreenState extends ConsumerState<StoreScreen> {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
           return const SaleScreen(
             paied: false,
+            isSuccess: false, //不要なためfalse
           );
         }));
       } else {

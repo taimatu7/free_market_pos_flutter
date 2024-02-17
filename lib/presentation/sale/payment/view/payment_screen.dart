@@ -5,6 +5,7 @@ import '../../../../domain/product/product.dart';
 import '../../../components/cart/view_model/cart_view_model.dart';
 import '../../../constants/constants.dart';
 import '../../sale/view/sale_screen.dart';
+import '../view_model/payment_screen_view_model.dart';
 import 'widgets/payment_dialog.dart';
 
 class PaymentScreen extends ConsumerStatefulWidget {
@@ -120,11 +121,16 @@ class _PaymentScreenState extends ConsumerState<PaymentScreen> {
                               backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
                             ),
                             onPressed: () {
-                              showDialog(context: context, builder: (_) => const PaymentDialog()).then((value) {
+                              showDialog(
+                                  context: context,
+                                  builder: (_) => PaymentDialog(
+                                      onPressed: ref.read(paymentViewModelProvider.notifier).savePurchaseHistory,
+                                      paymentDetails: paymentDetails)).then((value) {
                                 Navigator.push(context, MaterialPageRoute(
                                   builder: (context) {
-                                    return const SaleScreen(
+                                    return SaleScreen(
                                       paied: true,
+                                      isSuccess: value as bool,
                                     );
                                   },
                                 ));
