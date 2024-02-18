@@ -30,8 +30,11 @@ class _SaleScreenState extends ConsumerState<SaleScreen> {
     _initFunction = _init();
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      if (widget.paied) {
+      setState(() {
         ref.read(cartViewModelProvider.notifier).clear();
+      });
+      if (widget.paied && widget.isSuccess) {
+        // TODO 失敗時にダイアログを追加
         await showDialog(
             context: context,
             builder: (BuildContext context) {
