@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../common/extensions/datetime_extension.dart';
 import '../../../../domain/purchase_history/purchase_history.dart';
 import '../../../components/side_drawer/view/side_drawer.dart';
 import '../../../constants/constants.dart';
@@ -78,7 +79,7 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
                       title: Text(_purchaseHistories[index].$2.map((e) => e.details?.productName).join(', '), overflow: TextOverflow.ellipsis),
                       subtitle: Row(
                         children: [
-                          Text(_purchaseHistories[index].$2[0].createdAt.toString()),
+                          Text(_purchaseHistories[index].$2[0].createdAt.toYyyyMmDdHhMmSs()),
                           const SizedBox(width: 10),
                           Text('個数:${count.toString()}'),
                           // TODO 返品は別バージョンで実装予定
