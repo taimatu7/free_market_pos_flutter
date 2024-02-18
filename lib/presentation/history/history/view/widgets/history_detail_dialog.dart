@@ -60,7 +60,9 @@ class HistoryDetailDialogState extends ConsumerState<HistoryDetalDialog> {
                   return ListTile(
                       title: Text('${widget.purchaseHistories[index].details?.productName}'),
                       subtitle: Text('個数:${widget.purchaseHistories[index].details?.quantity}'),
-                      trailing: Text('${widget.purchaseHistories[index].details?.price}円'));
+                      // TODO　priceを単価にする
+                      trailing: Text(
+                          '${(widget.purchaseHistories[index].details?.price ?? 1) ~/ (widget.purchaseHistories[index].details?.quantity ?? 1)}円'));
                 },
                 separatorBuilder: (BuildContext context, int index) => const Divider(height: 0),
                 itemCount: widget.purchaseHistories.length,

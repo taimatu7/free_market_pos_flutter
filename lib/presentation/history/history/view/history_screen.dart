@@ -69,13 +69,6 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
                     int count = 0;
                     _purchaseHistories[index].$2.map((element) => count += element.details?.quantity ?? 0).toList();
 
-                    // TODO メソッドで切り出す
-                    int totalPrice = 0;
-                    _purchaseHistories[index]
-                        .$2
-                        .map((element) => totalPrice += (element.details?.price ?? 0) * (element.details?.quantity ?? 0))
-                        .toList();
-
                     return ListTile(
                         leading: Text((index + 1).toString()),
                         title: Text(_purchaseHistories[index].$2.map((e) => e.details?.productName).join(', '), overflow: TextOverflow.ellipsis),
@@ -92,7 +85,7 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
                             //   ),
                           ],
                         ),
-                        trailing: Text(totalPrice.toString()),
+                        trailing: Text('${_purchaseHistories[index].$2.first.salesAmount}円'),
                         onTap: () {
                           showDialog(
                               context: context,
