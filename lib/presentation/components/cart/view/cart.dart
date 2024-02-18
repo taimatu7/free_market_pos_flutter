@@ -14,7 +14,7 @@ class Cart extends ConsumerStatefulWidget {
 }
 
 class _CartState extends ConsumerState<Cart> {
-  bool _isInCart = true;
+  bool _isInCart = false;
   @override
   Widget build(BuildContext context) {
     ref.listen<CartModel>(cartViewModelProvider, (previous, next) {
@@ -50,6 +50,8 @@ class _CartState extends ConsumerState<Cart> {
               color: Colors.white,
             ),
       onTap: () => setState(() {
+        // 商品が入っていない場合は遷移しない
+        if (!_isInCart) return;
         Navigator.push(context, MaterialPageRoute(builder: (context) {
           return const PaymentScreen();
         }));
