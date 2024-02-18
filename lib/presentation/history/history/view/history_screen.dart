@@ -50,58 +50,61 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text('販売履歴', style: TextStyle(color: titleColor)),
-          backgroundColor: appBarColor,
-          centerTitle: true,
-        ),
-        drawer: const SideDrawer(),
-        body: FutureBuilder(
-          future: _initFunction,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState != ConnectionState.done) const Center(child: CircularProgressIndicator());
-            return ListView.separated(
-                itemBuilder: (_, int index) {
-                  // TODO メソッドで切り出す
-                  int count = 0;
-                  _purchaseHistories[index].$2.map((element) => count += element.details?.quantity ?? 0).toList();
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+          appBar: AppBar(
+            title: const Text('販売履歴', style: TextStyle(color: titleColor)),
+            backgroundColor: appBarColor,
+            centerTitle: true,
+          ),
+          drawer: const SideDrawer(),
+          body: FutureBuilder(
+            future: _initFunction,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState != ConnectionState.done) const Center(child: CircularProgressIndicator());
+              return ListView.separated(
+                  itemBuilder: (_, int index) {
+                    // TODO メソッドで切り出す
+                    int count = 0;
+                    _purchaseHistories[index].$2.map((element) => count += element.details?.quantity ?? 0).toList();
 
-                  // TODO メソッドで切り出す
-                  int totalPrice = 0;
-                  _purchaseHistories[index]
-                      .$2
-                      .map((element) => totalPrice += (element.details?.price ?? 0) * (element.details?.quantity ?? 0))
-                      .toList();
+                    // TODO メソッドで切り出す
+                    int totalPrice = 0;
+                    _purchaseHistories[index]
+                        .$2
+                        .map((element) => totalPrice += (element.details?.price ?? 0) * (element.details?.quantity ?? 0))
+                        .toList();
 
-                  return ListTile(
-                      leading: Text((index + 1).toString()),
-                      title: Text(_purchaseHistories[index].$2.map((e) => e.details?.productName).join(', '), overflow: TextOverflow.ellipsis),
-                      subtitle: Row(
-                        children: [
-                          Text(_purchaseHistories[index].$2[0].createdAt.toYyyyMmDdHhMmSs()),
-                          const SizedBox(width: 10),
-                          Text('個数:${count.toString()}'),
-                          // TODO 返品は別バージョンで実装予定
-                          // if (_purchaseProducts[index].returned)
-                          //   const Padding(
-                          //     padding: EdgeInsets.only(left: 10),
-                          //     child: Text('返品済', style: TextStyle(color: Colors.red)),
-                          //   ),
-                        ],
-                      ),
-                      trailing: Text(totalPrice.toString()),
-                      onTap: () {
-                        showDialog(
-                            context: context,
-                            builder: (_) {
-                              return HistoryDetalDialog(purchaseHistories: _purchaseHistories[index].$2);
-                            });
-                      });
-                },
-                separatorBuilder: (_, int index) => const Divider(height: 0),
-                itemCount: _purchaseHistories.length);
-          },
-        ));
+                    return ListTile(
+                        leading: Text((index + 1).toString()),
+                        title: Text(_purchaseHistories[index].$2.map((e) => e.details?.productName).join(', '), overflow: TextOverflow.ellipsis),
+                        subtitle: Row(
+                          children: [
+                            Text(_purchaseHistories[index].$2[0].createdAt.toYyyyMmDdHhMmSs()),
+                            const SizedBox(width: 10),
+                            Text('個数:${count.toString()}'),
+                            // TODO 返品は別バージョンで実装予定
+                            // if (_purchaseProducts[index].returned)
+                            //   const Padding(
+                            //     padding: EdgeInsets.only(left: 10),
+                            //     child: Text('返品済', style: TextStyle(color: Colors.red)),
+                            //   ),
+                          ],
+                        ),
+                        trailing: Text(totalPrice.toString()),
+                        onTap: () {
+                          showDialog(
+                              context: context,
+                              builder: (_) {
+                                return HistoryDetalDialog(purchaseHistories: _purchaseHistories[index].$2);
+                              });
+                        });
+                  },
+                  separatorBuilder: (_, int index) => const Divider(height: 0),
+                  itemCount: _purchaseHistories.length);
+            },
+          )),
+    );
   }
 }
