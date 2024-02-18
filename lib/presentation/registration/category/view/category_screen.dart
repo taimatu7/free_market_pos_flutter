@@ -30,8 +30,14 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
     await notifier.getAllCategory();
   }
 
+  String? valideCategoryName(String? value) {
+    if (value == null || value.isEmpty) return 'カテゴリー名を入力してください';
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
+    final formKey = GlobalKey<FormState>();
     ref.listen<CategoryScreenModel>(categoryScreenViewModelProvider, (previous, next) {
       setState(() {
         categories.clear();
@@ -54,12 +60,16 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
                     builder: (_) {
                       return AlertDialog(
                         title: const Text('カテゴリー追加'),
-                        content: TextField(
-                          controller: createCategoryNameController,
-                          focusNode: forcusNode,
-                          decoration: const InputDecoration(
-                            labelText: 'カテゴリー名',
-                            hintText: 'カテゴリー名を入力してください',
+                        content: Form(
+                          key: formKey,
+                          child: TextFormField(
+                            controller: createCategoryNameController,
+                            focusNode: forcusNode,
+                            decoration: const InputDecoration(
+                              labelText: 'カテゴリー名',
+                              hintText: 'カテゴリー名を入力してください',
+                            ),
+                            validator: valideCategoryName,
                           ),
                         ),
                         actions: [
@@ -70,6 +80,7 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
                           TextButton(
                             onPressed: () async {
                               forcusNode.unfocus();
+                              if (!(formKey.currentState?.validate() ?? false)) return;
                               final result =
                                   await ref.read(categoryScreenViewModelProvider.notifier).registerCategory(createCategoryNameController.text);
                               final text = result ? 'カテゴリーを追加しました' : 'カテゴリーの追加に失敗しました';
