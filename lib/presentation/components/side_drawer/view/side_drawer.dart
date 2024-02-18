@@ -33,7 +33,7 @@ class _SideDrawerState extends State<SideDrawer> {
           ListTile(
             title: const Text('商品販売'),
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
                 return const SaleScreen(
                   paied: false,
                   isSuccess: false, //不要なためfalse
@@ -44,7 +44,7 @@ class _SideDrawerState extends State<SideDrawer> {
           ListTile(
             title: const Text('商品販売履歴'),
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
                 return const HistoryScreen();
               }));
             },
@@ -52,7 +52,7 @@ class _SideDrawerState extends State<SideDrawer> {
           ListTile(
             title: const Text('カテゴリー編集'),
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
                 return const CategoryScreen();
               }));
             },
@@ -60,7 +60,7 @@ class _SideDrawerState extends State<SideDrawer> {
           ListTile(
             title: const Text('商品編集'),
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
                 return const ProductScreen();
               }));
             },
@@ -68,7 +68,7 @@ class _SideDrawerState extends State<SideDrawer> {
           ListTile(
             title: const Text('設定'),
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
                 return const SettingsScreen();
               }));
             },
