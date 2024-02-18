@@ -6,8 +6,8 @@ class CompletedPaymentDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('お支払いが完了しました'),
-      content: const Text('お買い上げありがとうございます'),
+      title: const Text('決済完了'),
+      content: const Text('決済が完了しました。'),
       actions: [
         TextButton(
           onPressed: () {
