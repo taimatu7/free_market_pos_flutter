@@ -4,7 +4,7 @@ import '../../../../infrastructure/providers/usecase_provider.dart';
 import '../../../../usecase/history/queries/get_purchase_histories.dart';
 import 'history_screen_model.dart';
 
-final paymentViewModelProvider =
+final historyViewModelProvider =
     StateNotifierProvider<HistoryScreenViewModel, HistoryScreenModel>((ref) => HistoryScreenViewModel(ref.read(getPurchaseHistoryUsecaseProvider)));
 
 class HistoryScreenViewModel extends StateNotifier<HistoryScreenModel> {
