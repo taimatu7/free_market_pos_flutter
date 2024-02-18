@@ -31,7 +31,12 @@ class PaymentDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
     return AlertDialog(
-      title: const Text('受け取り金額を入力してください'),
+      title: Column(
+        children: [
+          const Text('受け取り金額を入力してください'),
+          Text('販売金額: $salesAmount' '円'),
+        ],
+      ),
       content: Form(
         key: formKey,
         child: TextFormField(
