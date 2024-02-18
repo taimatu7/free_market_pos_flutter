@@ -9,6 +9,7 @@ import '../../../domain/category/exceptions/delete_category_exception.dart';
 import '../../../domain/category/exceptions/get_category_exception.dart';
 import '../../../domain/category/exceptions/update_category_exception.dart';
 import '../../data/db/category.dart' as realm;
+import '../../data/db/product.dart' as realm;
 
 class CategoryRepositoryImpl implements CategoryRepository {
   final Realm _realm;
@@ -59,9 +60,12 @@ class CategoryRepositoryImpl implements CategoryRepository {
   Future<Category> delete(Category category) async {
     try {
       final categoryModel = _realm.find<realm.Category>(category.id);
+      // カテゴリーに紐づく商品も削除
+      final productModel = _realm.all<realm.Product>().where((element) => element.categoryId == category.id);
       if (categoryModel == null) throw BaseException('');
       _realm.write(() {
         _realm.delete(categoryModel);
+        _realm.deleteMany(productModel);
       });
       return category;
     } catch (e, stackTrace) {
