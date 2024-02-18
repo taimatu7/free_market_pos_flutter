@@ -21,12 +21,13 @@ extension PurchaseHistoryExtension on _PurchaseHistory {
 @RealmModel()
 class _PurchaseHistoryDetail {
   late String productId;
+  late String productName;
   late int quantity;
   late int price;
 }
 
 extension _PurchaseHistoryDetailExtension on _PurchaseHistoryDetail {
   domain.PurchaseHistoryDetail toDomainModel() {
-    return domain.PurchaseHistoryDetail(productId: productId, quantity: quantity, price: price);
+    return domain.PurchaseHistoryDetail(productId: productId, productName: productName, quantity: quantity, price: price);
   }
 }
