@@ -9,12 +9,15 @@ part '../../../generated/infrastructure/data/db/purchase_history.g.dart';
 class _PurchaseHistory {
   late String id;
   late DateTime createdAt;
+  late int paymentAmount;
+  late int salesAmount;
   late _PurchaseHistoryDetail? details;
 }
 
 extension PurchaseHistoryExtension on _PurchaseHistory {
   domain.PurchaseHistory toDomainModel() {
-    return domain.PurchaseHistory(id: id, createdAt: createdAt, details: details?.toDomainModel());
+    return domain.PurchaseHistory(
+        id: id, createdAt: createdAt, paymentAmount: paymentAmount, salesAmount: salesAmount, details: details?.toDomainModel());
   }
 }
 

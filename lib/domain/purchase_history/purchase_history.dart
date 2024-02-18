@@ -10,12 +10,14 @@ class PurchaseHistory with _$PurchaseHistory {
   const factory PurchaseHistory({
     required String id,
     required DateTime createdAt,
+    required int paymentAmount,
+    required int salesAmount,
     required PurchaseHistoryDetail? details,
   }) = _PurchaseHistory;
 }
 
 extension PurchaseHistoryExtension on PurchaseHistory {
   realm.PurchaseHistory toRealmModel() {
-    return realm.PurchaseHistory(id, createdAt, details: details?.toRealmModel());
+    return realm.PurchaseHistory(id, createdAt, paymentAmount, salesAmount, details: details?.toRealmModel());
   }
 }

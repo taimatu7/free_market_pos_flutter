@@ -16,7 +16,7 @@ class PaymentScreenViewModel extends StateNotifier<PaymentScreenModel> {
 
   final SavePurchaseHistory _savePurchaseHistory;
 
-  bool savePurchaseHistory(List<(Product, int)> paymentDetails) {
+  bool savePurchaseHistory(List<(Product, int)> paymentDetails, int paymentAmount, int salesAmount) {
     try {
       final ulid = Ulid().toString();
       final date = DateTime.now();
@@ -24,6 +24,8 @@ class PaymentScreenViewModel extends StateNotifier<PaymentScreenModel> {
           .map((e) => PurchaseHistory(
               id: ulid,
               createdAt: date,
+              paymentAmount: paymentAmount,
+              salesAmount: salesAmount,
               details: PurchaseHistoryDetail(productId: e.$1.id, productName: e.$1.name, quantity: e.$2, price: e.$1.price * e.$2)))
           .toList();
       _savePurchaseHistory.execute(purchaseHistories);
