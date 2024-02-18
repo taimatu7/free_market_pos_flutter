@@ -20,7 +20,7 @@ class _StoreScreenState extends ConsumerState<StoreScreen> {
     ref.listen<StoreScreenModel>(storeScreenViewModelProvider, (previous, next) {
       if (next.registered) {
         if (next.isFirstRegistered) context.showSnackBar('店舗登録が完了しました。');
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
           return const SaleScreen(
             paied: false,
             isSuccess: false, //不要なためfalse

@@ -127,7 +127,7 @@ class _PaymentScreenState extends ConsumerState<PaymentScreen> {
                                       onPressed: ref.read(paymentViewModelProvider.notifier).savePurchaseHistory,
                                       paymentDetails: paymentDetails,
                                       salesAmount: getPaymentTotal(paymentDetails))).then((value) {
-                                Navigator.push(context, MaterialPageRoute(
+                                Navigator.pushReplacement(context, MaterialPageRoute(
                                   builder: (context) {
                                     return SaleScreen(
                                       paied: true,
