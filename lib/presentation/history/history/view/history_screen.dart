@@ -52,7 +52,7 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('会計', style: TextStyle(color: titleColor)),
+          title: const Text('販売履歴', style: TextStyle(color: titleColor)),
           backgroundColor: appBarColor,
           centerTitle: true,
         ),
