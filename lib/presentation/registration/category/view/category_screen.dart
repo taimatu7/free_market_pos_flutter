@@ -33,12 +33,10 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
   @override
   Widget build(BuildContext context) {
     ref.listen<CategoryScreenModel>(categoryScreenViewModelProvider, (previous, next) {
-      if (next.categories.isNotEmpty) {
-        setState(() {
-          categories.clear();
-          categories.addAll(next.categories);
-        });
-      }
+      setState(() {
+        categories.clear();
+        categories.addAll(next.categories);
+      });
     });
     return Scaffold(
       appBar: AppBar(
