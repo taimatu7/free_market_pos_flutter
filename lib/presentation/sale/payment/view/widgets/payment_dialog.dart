@@ -15,13 +15,30 @@ class PaymentDialog extends StatelessWidget {
   }) : super(key: key);
   final TextEditingController _controller = TextEditingController();
 
+  String? validatePrice(String? value) {
+    if (value == null || value.isEmpty) return '金額を入力してください';
+
+    int? price = int.tryParse(value);
+
+    if (price == null || price < salesAmount) {
+      return '販売金額以上を入力してください';
+    }
+
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
+    final formKey = GlobalKey<FormState>();
     return AlertDialog(
       title: const Text('受け取り金額を入力してください'),
-      content: TextField(
-        controller: _controller,
-        keyboardType: TextInputType.number,
+      content: Form(
+        key: formKey,
+        child: TextFormField(
+          controller: _controller,
+          keyboardType: TextInputType.number,
+          validator: validatePrice,
+        ),
       ),
       actions: [
         Row(
@@ -29,6 +46,8 @@ class PaymentDialog extends StatelessWidget {
           children: [
             TextButton(
               onPressed: () async {
+                if (!(formKey.currentState?.validate() ?? false)) return;
+
                 final result = onPressed.call(paymentDetails, int.parse(_controller.text), salesAmount);
                 if (context.mounted) {
                   Navigator.of(context).pop(result);
